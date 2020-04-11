@@ -1,0 +1,85 @@
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using EC_API.Helpers;
+using EC_API._Services.Interface;
+using EC_API.DTO;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using EC_API.Models;
+
+namespace EC_API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class GlueIngredientController : ControllerBase
+    {
+        private readonly IGlueIngredientService _glueIngredientService;
+        public GlueIngredientController(IGlueIngredientService brandService)
+        {
+            _glueIngredientService = brandService;
+        }
+
+        [HttpGet("GetAllGlues/{page}/{pageSize}")]
+        public async Task<IActionResult> GetGluesWithPaginations(int page, int pageSize)
+        {
+            PaginationParams param = new PaginationParams
+            {
+                PageNumber = page,
+                PageSize = pageSize
+            };
+            var brands = await _glueIngredientService.GetGluesWithPaginations(param);
+            Response.AddPagination(brands.CurrentPage, brands.PageSize, brands.TotalCount, brands.TotalPages);
+            return Ok(brands);
+        }
+
+        [HttpGet("GetAllIngredients/{glueid}/{page}/{pageSize}")]
+        public async Task<IActionResult> GetIngredientsWithPaginations(int glueid, int page, int pageSize)
+        {
+            PaginationParams param = new PaginationParams
+            {
+                PageNumber = page,
+                PageSize = pageSize,
+            };
+            var brands = await _glueIngredientService.GetIngredientsWithPaginations(param, glueid);
+            Response.AddPagination(brands.CurrentPage, brands.PageSize, brands.TotalCount, brands.TotalPages);
+            return Ok(brands);
+        }
+        [HttpPost]
+        public async Task<IActionResult> MapGlueIngredient(GlueIngredient glueIngredient)
+        {
+
+            //if (await _glueIngredientService.CheckExists(glueIngredientDto.ID))
+            //    return BadRequest("Glue ID already exists!");
+            //if (await _glueIngredientService.CheckBarCodeExists(glueIngredientDto.Code))
+            //    return BadRequest("Barcode already exists!");
+            ////var username = User.FindFirst(ClaimTypes.Name).Value;
+            ////glueIngredientDto.Updated_By = username;
+            glueIngredient.CreatedDate = DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss tt");
+            if (await _glueIngredientService.MapGlueIngredient(glueIngredient))
+            {
+                return NoContent();
+            }
+
+            throw new Exception("Creating the brand failed on save");
+        }
+        [HttpGet("{glueid}/{ingredient}")]
+        public async Task<IActionResult> Delete(int glueid, int ingredient)
+        {
+
+            //if (await _glueIngredientService.CheckExists(glueIngredientDto.ID))
+            //    return BadRequest("Glue ID already exists!");
+            //if (await _glueIngredientService.CheckBarCodeExists(glueIngredientDto.Code))
+            //    return BadRequest("Barcode already exists!");
+            ////var username = User.FindFirst(ClaimTypes.Name).Value;
+            ////glueIngredientDto.Updated_By = username;
+            if (await _glueIngredientService.Delete(glueid, ingredient))
+            {
+                return NoContent();
+            }
+
+            throw new Exception("Creating the brand failed on save");
+        }
+
+    }
+}
