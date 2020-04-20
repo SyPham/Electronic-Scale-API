@@ -110,6 +110,7 @@ namespace EC_API
             services.AddScoped<IUserDetailRepository, UserDetailRepository>();
             services.AddScoped<IPlanRepository, PlanRepository>();
             services.AddScoped<IMapModelRepository, MapModelRepository>();
+            services.AddScoped<ILineRepository, LineRepository>();
 
             //Services
             services.AddScoped<IGlueIngredientService, GlueIngredientService>();
@@ -121,6 +122,7 @@ namespace EC_API
             services.AddScoped<IUserDetailService, UserDetailService>();
             services.AddScoped<IPlanService, PlanService>();
             services.AddScoped<IMapModelService, MapModelService>();
+            services.AddScoped<ILineService, LineService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
