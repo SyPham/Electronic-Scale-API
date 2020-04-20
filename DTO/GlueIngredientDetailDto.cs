@@ -12,6 +12,7 @@ namespace EC_API.DTO
         public int IngredientID { get; set; }
         public string GlueName { get; set; }
         public string IngredientName { get; set; }
+        public int Percentage { get; set; }
         public string CreatedDate { get; set; }
     }
 }

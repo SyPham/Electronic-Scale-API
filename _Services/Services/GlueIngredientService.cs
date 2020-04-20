@@ -107,9 +107,9 @@ namespace EC_API._Services.Services
                                       IngredientID = a.IngredientID,
                                       GlueName = b.Name,
                                       IngredientName = c.Name,
-                                      CreatedDate = a.CreatedDate
+                                      CreatedDate = a.CreatedDate,
+                                      Percentage = a.Percentage
                                   });
-
 
             var parent = new GlueIngredientForGroupByDto();
             var childs = new List<GlueIngredientDetailDto>();
@@ -123,7 +123,8 @@ namespace EC_API._Services.Services
                     IngredientName = item.IngredientName,
                     GlueID = item.GlueID,
                     CreatedDate = item.CreatedDate,
-                    GlueName = item.GlueName
+                    GlueName = item.GlueName,
+                    Percentage = item.Percentage
                 });
             }
             parent.GlueIngredients = childs;
