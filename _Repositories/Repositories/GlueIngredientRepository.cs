@@ -17,6 +17,26 @@ namespace EC_API._Repositories.Repositories
             _context = context;
         }
 
+        public async Task<bool> EditPercentage(int glueid, int ingredientid, int percentage)
+        {
+            if(await _context.GlueIngredient.AnyAsync(x => x.GlueID == glueid && x.IngredientID == ingredientid))
+            {
+                var item =await _context.GlueIngredient.FirstOrDefaultAsync(x => x.GlueID == glueid && x.IngredientID == ingredientid);
+                item.Percentage = percentage;
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                catch (System.Exception)
+                {
+                    return false;
+                }
+
+            }
+            return false;
+        }
+
         public async Task<object> GetIngredientOfGlue(int glueid)
         {
             var model2 =await (from a in _context.GlueIngredient
@@ -29,29 +49,59 @@ namespace EC_API._Repositories.Repositories
                             Code = b.Code,
                             Ingredient = c,
                             Percentage = a.Percentage
-                        }).ToListAsync();
-            var glues = new GlueDto();
-            var list = new List<IngredientDto>();
-            foreach (var item in model2)
-            {
-                if(item.ID == glueid)
-                {
-                    glues.ID = item.ID;
-                    glues.Name = item.Name;
-                    glues.Code = item.Code;
+                        }).GroupBy(x=>x.ID).ToListAsync();
+            //var glues = new GlueDto();
+            //var list = new List<IngredientDto>();
+            //foreach (var item in model2)
+            //{
+            //    if(item.ID == glueid)
+            //    {
+            //        glues.ID = item.ID;
+            //        glues.Name = item.Name;
+            //        glues.Code = item.Code;
 
-                    list.Add(new IngredientDto {
-                        ID = item.Ingredient.ID,
-                        Name =item.Ingredient.Name,
-                        Percentage = item.Percentage,
-                        Code = item.Ingredient.Code,
-                    });
-                }
+            //        list.Add(new IngredientDto {
+            //            ID = item.Ingredient.ID,
+            //            Name =item.Ingredient.Name,
+            //            Percentage = item.Percentage,
+            //            Code = item.Ingredient.Code,
+            //        });
+            //    }
                 
-            }
-            glues.Ingredients = list;
-            return glues;
+            //}
+            //glues.Ingredients = list;
+            return model2;
 
+        }
+
+        public async Task<bool> Guidance(List<GlueIngredientForGuidanceDto> glueIngredientForGuidanceDto)
+        {
+          var update = await _context.GlueIngredient.Where(x => glueIngredientForGuidanceDto.Select(x => x.GlueID).Contains(x.GlueID)).ToListAsync();
+            var listUpdate = new List<GlueIngredient>();
+            foreach (var item in glueIngredientForGuidanceDto)
+            {
+                foreach (var item2 in update)
+                {
+                    if(item.GlueID == item2.GlueID && item.IngredientID == item2.IngredientID)
+                    {
+                        item2.Input = item.Input;
+                        item2.ModelName = item.ModelName;
+                        item2.ModelNo = item.ModelNo;
+                    }
+                }
+            }
+            try
+            {
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                await _context.SaveChangesAsync();
+                return false;
+
+            }
+            throw new System.NotImplementedException();
         }
 
 

@@ -6,6 +6,8 @@ using EC_API._Services.Interface;
 using EC_API.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EC_API.Controllers
 {
@@ -13,10 +15,12 @@ namespace EC_API.Controllers
     [Route("api/[controller]")]
     public class MakeGlueController : ControllerBase
     {
+        private readonly IGlueIngredientService _glueIngredientService;
         private readonly IMakeGlueService _makeGlueService;
-        public MakeGlueController(IMakeGlueService brandService)
+        public MakeGlueController(IMakeGlueService makeGlueService, IGlueIngredientService glueIngredientService)
         {
-            _makeGlueService = brandService;
+            _makeGlueService = makeGlueService;
+            _glueIngredientService = glueIngredientService;
         }
 
       
@@ -50,6 +54,13 @@ namespace EC_API.Controllers
         {
             var item = await _makeGlueService.GetGlueWithIngredientByGlueCode(code);
             return Ok(item);
+        }
+        [HttpPut("Guidance")]
+        public async Task<IActionResult> Guidance(List<GlueIngredientForGuidanceDto> update)
+        {
+            if (await _glueIngredientService.Guidance(update))
+                return NoContent();
+            return BadRequest($"Updating glue Ingredient{update.First().GlueID} failed on save");
         }
     }
 }

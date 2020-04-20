@@ -11,6 +11,12 @@ namespace EC_API.Data
         public DbSet<Ingredient> Ingredients { get; set; }
 
         public DbSet<Glue> Glues { get; set; }
+        public DbSet<Line> Line { get; set; }
+        public DbSet<ModelName> ModelNames { get; set; }
+        public DbSet<Plan> Plans { get; set; }
+        public DbSet<ModelNo> ModelNos { get; set; }
+        public DbSet<MapModel> MapModel { get; set; }
+        public DbSet<UserDetail> UserDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

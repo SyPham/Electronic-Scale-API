@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EC_API._Services.Services
 {
-    public class IngredientService: IIngredientService
+    public class IngredientService : IIngredientService
     {
         private readonly IIngredientRepository _repoIngredient;
         private readonly IMapper _mapper;
@@ -37,7 +37,7 @@ namespace EC_API._Services.Services
             return await _repoIngredient.SaveAll();
         }
 
-     
+
 
         //Lấy danh sách Brand và phân trang
         public async Task<PagedList<IngredientDto>> GetWithPaginations(PaginationParams param)
@@ -63,7 +63,8 @@ namespace EC_API._Services.Services
         //Xóa Brand
         public async Task<bool> Delete(object id)
         {
-            var brand = _repoIngredient.FindById(id);
+           
+            var brand = _repoIngredient.FindById(id.ToInt());
             _repoIngredient.Remove(brand);
             return await _repoIngredient.SaveAll();
         }
@@ -85,7 +86,7 @@ namespace EC_API._Services.Services
         //Lấy Brand theo Brand_Id
         public IngredientDto GetById(object id)
         {
-            return  _mapper.Map<Ingredient, IngredientDto>(_repoIngredient.FindById(id));
+            return _mapper.Map<Ingredient, IngredientDto>(_repoIngredient.FindById(id));
         }
 
         public Task<PagedList<IngredientDto>> Search(PaginationParams param, object text)

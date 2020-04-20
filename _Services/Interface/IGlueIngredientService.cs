@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EC_API.DTO;
 using EC_API.Helpers;
@@ -11,5 +12,10 @@ namespace EC_API._Services.Interface
         Task<PagedList<IngredientDto>> GetIngredientsWithPaginations(PaginationParams param, int glueid);
         Task<bool> MapGlueIngredient(GlueIngredient glueIngredient);
         Task<bool> Delete(int glueid, int ingredientid);
+        Task<List<IngredientDto>> GetIngredientsByGlueID(int glueid);
+        bool CheckExist(int glueid, int ingredientid);
+        object GetGlueIngredientDetail(int glueid);
+        Task<bool> EditPercentage(int glueid, int ingredientid, int percentage);
+        Task<bool> Guidance(List<GlueIngredientForGuidanceDto> glueIngredientForGuidanceDto);
     }
 }

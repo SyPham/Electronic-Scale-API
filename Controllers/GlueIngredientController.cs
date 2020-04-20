@@ -7,6 +7,8 @@ using EC_API.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using EC_API.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EC_API.Controllers
 {
@@ -45,7 +47,25 @@ namespace EC_API.Controllers
             Response.AddPagination(brands.CurrentPage, brands.PageSize, brands.TotalCount, brands.TotalPages);
             return Ok(brands);
         }
-        [HttpPost]
+        [HttpGet("GetIngredientsByGlueID/{glueid}")]
+        public async Task<IActionResult> GetIngredientsWithPaginations(int glueid)
+        {
+            var brands = await _glueIngredientService.GetIngredientsByGlueID(glueid);
+            return Ok(brands);
+        }
+        [HttpGet("{glueid}/detail")]
+        public IActionResult Detail(int glueid)
+        {
+            var brands =  _glueIngredientService.GetGlueIngredientDetail(glueid);
+            return Ok(brands);
+        }
+        //[HttpGet("GetIngredientsByGlueID/{glueid}")]
+        //public async Task<IActionResult> GetIngredientsWithPaginations(int glueid)
+        //{
+        //    var brands = await _glueIngredientService.GetIngredientsByGlueID(glueid);
+        //    return Ok(brands);
+        //}
+        [HttpPost("MapGlueIngredient")]
         public async Task<IActionResult> MapGlueIngredient(GlueIngredient glueIngredient)
         {
 
@@ -63,7 +83,7 @@ namespace EC_API.Controllers
 
             throw new Exception("Creating the brand failed on save");
         }
-        [HttpGet("{glueid}/{ingredient}")]
+        [HttpGet("{glueid}/{ingredient}/delete")]
         public async Task<IActionResult> Delete(int glueid, int ingredient)
         {
 
@@ -73,13 +93,25 @@ namespace EC_API.Controllers
             //    return BadRequest("Barcode already exists!");
             ////var username = User.FindFirst(ClaimTypes.Name).Value;
             ////glueIngredientDto.Updated_By = username;
+            //if(_glueIngredientService.get)
+            //if (await _glueIngredientService.Delete(glueid, ingredient))
+            //{
+            //    return NoContent();
+            //}
             if (await _glueIngredientService.Delete(glueid, ingredient))
             {
                 return NoContent();
             }
 
-            throw new Exception("Creating the brand failed on save");
+            throw new Exception("Delete the brand failed on save");
         }
-
+        [HttpPut("EditPercentage")]
+        public async Task<IActionResult> Update(GlueIngredientForEditDto update)
+        {
+            if (await _glueIngredientService.EditPercentage(update.GlueID, update.IngredientID, update.Percentage))
+                return NoContent();
+            return BadRequest($"Updating glue Ingredient{update.GlueID} and {update.IngredientID} failed on save");
+        }
+        
     }
 }

@@ -68,8 +68,11 @@ namespace EC_API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(IngredientDto ingredientIngredientDto)
         {
+
+            ingredientIngredientDto.CreatedDate = DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss tt");
             if (await _ingredientService.Update(ingredientIngredientDto))
                 return NoContent();
+
             return BadRequest($"Updating brand {ingredientIngredientDto.ID} failed on save");
         }
 

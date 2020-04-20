@@ -13,11 +13,13 @@ namespace EC_API.Models
         }
 
         public int ID { get; set; }
-        public int GlueID { get; set; }
-        public int IngredientID { get; set; }
-        public int Percentage { get; set; }
-        public string CreatedDate { get; set; }
-        //public int Amount { get; set; }
-       
+        public int ModelName { get; set; } // Ten Giay
+        public int ModelNo { get; set; } // Ma giay
+        public int GlueID { get; set; } // Keo
+        public int LineID { get; set; } // Line
+        public int IngredientID { get; set; } //Thanh phan
+        public int Percentage { get; set; } // Ty le phan tram
+        public string CreatedDate { get; set; } // Ngay pha
+        public int Input { get; set; } // So luong thanh phan da pha
     }
 }

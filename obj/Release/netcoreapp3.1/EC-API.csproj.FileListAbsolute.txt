@@ -75,3 +75,11 @@ F:\0.Document\wwroot\ElectronicScale\EC-API\bin\Release\netcoreapp3.1\publish\pu
 F:\0.Document\wwroot\ElectronicScale\EC-API\bin\Release\netcoreapp3.1\publish\publish\appsettings.json
 F:\0.Document\wwroot\ElectronicScale\EC-API\bin\Release\netcoreapp3.1\publish\publish\EC-API.deps.json
 F:\0.Document\wwroot\ElectronicScale\EC-API\bin\Release\netcoreapp3.1\publish\publish\EC-API.runtimeconfig.json
+F:\0.Document\wwroot\ElectronicScale\EC-API\bin\Release\netcoreapp3.1\publish\publish\publish\web.config
+F:\0.Document\wwroot\ElectronicScale\EC-API\bin\Release\netcoreapp3.1\publish\publish\publish\appsettings.Development.json
+F:\0.Document\wwroot\ElectronicScale\EC-API\bin\Release\netcoreapp3.1\publish\publish\publish\appsettings.json
+F:\0.Document\wwroot\ElectronicScale\EC-API\bin\Release\netcoreapp3.1\publish\publish\publish\EC-API.deps.json
+F:\0.Document\wwroot\ElectronicScale\EC-API\bin\Release\netcoreapp3.1\publish\publish\publish\EC-API.runtimeconfig.json
+F:\0.Document\wwroot\ElectronicScale\EC-API\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+F:\0.Document\wwroot\ElectronicScale\EC-API\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+F:\0.Document\wwroot\ElectronicScale\EC-API\bin\Release\netcoreapp3.1\Newtonsoft.Json.Bson.dll

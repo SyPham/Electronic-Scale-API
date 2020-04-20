@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
 
 namespace EC_API.Helpers
 {
@@ -23,6 +24,6 @@ namespace EC_API.Helpers
                 JsonConvert.SerializeObject(paginationHeader, camelCaseFormatter));
             response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
         }
-
+        
     }
 }

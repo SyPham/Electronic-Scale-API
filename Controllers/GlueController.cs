@@ -41,7 +41,7 @@ namespace EC_API.Controllers
             Response.AddPagination(lists.CurrentPage, lists.PageSize, lists.TotalCount, lists.TotalPages);
             return Ok(lists);
         }
-       
+
         [HttpPost]
         public async Task<IActionResult> Create(GlueCreateDto glueIngredientDto)
         {
@@ -51,7 +51,6 @@ namespace EC_API.Controllers
             if (await _glueService.CheckBarCodeExists(glueIngredientDto.Code))
                 return BadRequest("Barcode already exists!");
             //var username = User.FindFirst(ClaimTypes.Name).Value;
-            //glueIngredientDto.Updated_By = username;
             glueIngredientDto.CreatedDate = DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss tt");
             if (await _glueService.Add(glueIngredientDto))
             {
@@ -64,8 +63,13 @@ namespace EC_API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(GlueCreateDto glueIngredientDto)
         {
+
+            glueIngredientDto.CreatedDate = DateTime.Now.ToString("MMMM dd, yyyy HH:mm:ss tt");
             if (await _glueService.Update(glueIngredientDto))
+            {
                 return NoContent();
+
+            }
             return BadRequest($"Updating brand {glueIngredientDto.ID} failed on save");
         }
 

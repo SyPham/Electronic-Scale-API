@@ -38,7 +38,9 @@ namespace EC_API
         {
             services.AddCors();
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             //Auto Mapper
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IMapper>(sp =>
@@ -103,12 +105,22 @@ namespace EC_API
             services.AddScoped<IGlueRepository, GlueRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();
             services.AddScoped<IMakeGlueRepository, MakeGlueRepository>();
+            services.AddScoped<IModelNameRepository, ModelNameRepository>();
+            services.AddScoped<IModelNoRepository, ModelNoRepository>();
+            services.AddScoped<IUserDetailRepository, UserDetailRepository>();
+            services.AddScoped<IPlanRepository, PlanRepository>();
+            services.AddScoped<IMapModelRepository, MapModelRepository>();
 
             //Services
             services.AddScoped<IGlueIngredientService, GlueIngredientService>();
             services.AddScoped<IGlueService, GlueService>();
             services.AddScoped<IMakeGlueService, MakeGlueService>();
             services.AddScoped<IIngredientService, IngredientService>();
+            services.AddScoped<IModelNameService, ModelNameService>();
+            services.AddScoped<IModelNoService, ModelNoService>();
+            services.AddScoped<IUserDetailService, UserDetailService>();
+            services.AddScoped<IPlanService, PlanService>();
+            services.AddScoped<IMapModelService, MapModelService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

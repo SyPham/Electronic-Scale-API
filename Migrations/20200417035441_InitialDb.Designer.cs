@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace EC_API.Data.Migrations
+namespace EC_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200330041531_001")]
-    partial class _001
+    [Migration("20200417035441_InitialDb")]
+    partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,7 @@ namespace EC_API.Data.Migrations
                     b.ToTable("Glues");
                 });
 
-            modelBuilder.Entity("EC_API.Models.Glue", b =>
+            modelBuilder.Entity("EC_API.Models.GlueIngredient", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -58,12 +58,24 @@ namespace EC_API.Data.Migrations
                     b.Property<int>("IngredientID")
                         .HasColumnType("int");
 
+                    b.Property<int>("Input")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LineID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModelName")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModelNo")
+                        .HasColumnType("int");
+
                     b.Property<int>("Percentage")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Glue");
+                    b.ToTable("GlueIngredient");
                 });
 
             modelBuilder.Entity("EC_API.Models.Ingredient", b =>
@@ -85,6 +97,71 @@ namespace EC_API.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("EC_API.Models.Line", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Line");
+                });
+
+            modelBuilder.Entity("EC_API.Models.ModelName", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ModelNames");
+                });
+
+            modelBuilder.Entity("EC_API.Models.ModelNo", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModelNameID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ModelNameID");
+
+                    b.ToTable("ModelNos");
                 });
 
             modelBuilder.Entity("EC_API.Models.User", b =>
@@ -112,6 +189,13 @@ namespace EC_API.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("EC_API.Models.ModelNo", b =>
+                {
+                    b.HasOne("EC_API.Models.ModelName", "ModelName")
+                        .WithMany("ModelNos")
+                        .HasForeignKey("ModelNameID");
                 });
 #pragma warning restore 612, 618
         }

@@ -5,12 +5,27 @@
     <AssemblyName>EC-API</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20200330041531_001.cs" />
+    <Compile Remove="Data\Migrations\20200330041531_001.Designer.cs" />
     <Compile Remove="Data\Migrations\20200411063102_addAmountToGlueIngredentTable.cs" />
     <Compile Remove="Data\Migrations\20200411063102_addAmountToGlueIngredentTable.Designer.cs" />
     <Compile Remove="Data\Migrations\20200411063225_addAmountToGlueIngredentTable.cs" />
     <Compile Remove="Data\Migrations\20200411063225_addAmountToGlueIngredentTable.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200417030419_version1.0.0.cs" />
+    <Compile Remove="Data\Migrations\20200417030419_version1.0.0.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200417033017_version1.0.1.cs" />
+    <Compile Remove="Data\Migrations\20200417033017_version1.0.1.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200417033109_version1.0.1.cs" />
+    <Compile Remove="Data\Migrations\20200417033109_version1.0.1.Designer.cs" />
+    <Compile Remove="Migrations\20200417033353_InitialDb.cs" />
+    <Compile Remove="Migrations\20200417033353_InitialDb.Designer.cs" />
+    <Compile Remove="Migrations\20200417033759_InitialDb.cs" />
+    <Compile Remove="Migrations\20200417033759_InitialDb.Designer.cs" />
+    <Compile Remove="Migrations\20200417040316_AddPlan.cs" />
+    <Compile Remove="Migrations\20200417040316_AddPlan.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
       <PrivateAssets>all</PrivateAssets>
@@ -27,6 +42,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Data\Migrations\" />
     <Folder Include="publish\" />
   </ItemGroup>
 </Project>
